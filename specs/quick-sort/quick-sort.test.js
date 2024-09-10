@@ -18,8 +18,8 @@ const quickSort = (nums) => {
   }
 
   const pivotValue = [nums.pop()];
-  const largerValues = nums.filter(num => num <= pivotValue);
-  const smallerValues =  nums.filter(num => num > pivotValue);;
+  const largerValues = nums.filter(num => num <= pivotValue[0]);
+  const smallerValues =  nums.filter(num => num > pivotValue[0]);
 
   const smallerValuesSorted = quickSort(smallerValues)
   const largerValuesSorted = quickSort(largerValues)
