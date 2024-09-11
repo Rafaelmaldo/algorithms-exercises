@@ -9,13 +9,59 @@
 
 */
 
-function radixSort(array) {
-  // code goes here
+const getDigit = (number, place, _longestNumber) => {
+  if ((number.toString().length <= place)) {
+    return 0;
+  }
+
+  const numberAsArray = (number.toString()).split("");
+  const digit = Number(numberAsArray[(numberAsArray.length - 1) - place]);
+  return digit;
+}
+
+
+const getLongestNumber = (array) => {
+  let highestDigits = 1;
+  
+  for (num of array) {
+    let digits = num.toString().length;
+    if (digits > highestDigits) {
+      highestDigits = digits;
+    }
+  }
+
+  return highestDigits;
+}
+
+const radixSort = (array) => {
+  if (array.lenth < 2) {
+    return array;
+  }
+
+  const longestNumber = getLongestNumber(array);
+  for (let i = 0; i < longestNumber; i++) {
+    const buckets = []
+    for (let j = 0; j <= 9; j++){
+      buckets.push([]);
+    }
+
+    while (array.length) {
+      let addToBucket = array.shift();
+      let bucketNumber = getDigit(addToBucket, i);
+      buckets[bucketNumber].push(addToBucket);
+    }
+
+    for (let bucket of buckets) {
+      array = [...array, ...bucket]
+    }
+
+  }
+  return array;
 }
 
 // unit tests
 // do not modify the below code
-describe.skip("radix sort", function () {
+describe("radix sort", function () {
   it("should sort correctly", () => {
     const nums = [
       20,
